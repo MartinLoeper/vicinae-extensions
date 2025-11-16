@@ -85,14 +85,6 @@ export default function ConnectCommand() {
     try {
       setIsLoading(true);
       await connectToSession(session);
-      
-      // Only focus the window if the session has focus = true in sesh.toml
-      if (shouldFocusSession(session)) {
-        await openApp();
-      }
-      
-      await closeMainWindow();
-      await clearSearchBar();
     } catch (error) {
       await showToast({
         style: Toast.Style.Failure,
@@ -101,6 +93,13 @@ export default function ConnectCommand() {
       });
       console.error(error);
     } finally {
+      // Only focus the window if the session has focus = true in sesh.toml
+      if (shouldFocusSession(session)) {
+        await openApp();
+      }
+      
+      await closeMainWindow();
+      await clearSearchBar();
       setIsLoading(false);
     }
   }
