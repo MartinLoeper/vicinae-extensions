@@ -1,13 +1,18 @@
 import { getPreferenceValues } from "@raycast/api";
 
-interface Preferences {
-  environmentPath: string;
-}
+export function getEnv() {
+  const { environmentPath } = getPreferenceValues<Preferences.CmdConnect>();
 
-export function getEnv(): NodeJS.ProcessEnv {
-  const preferences = getPreferenceValues<Preferences>();
-  return {
-    ...process.env,
-    PATH: preferences.environmentPath,
-  };
+  const patchedWithoutDuplicates = new Set([
+    ...(process.env.PATH?.split(":") ?? []),
+    ...(environmentPath?.split(":") ?? []),
+  ]);
+
+  const pathString = Array.from(patchedWithoutDuplicates).join(":");
+
+  const env = Object.assign({}, process.env, {
+    PATH: pathString,
+  });
+
+  return env;
 }
