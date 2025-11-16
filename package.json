@@ -1,0 +1,31 @@
+{
+  "name": "vicinae-extensions",
+  "version": "1.0.0",
+  "description": "Monorepo for Vicinae extensions",
+  "private": true,
+  "workspaces": [
+    "extensions/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r build",
+    "build:ext": "pnpm --filter",
+    "dev": "pnpm -r dev",
+    "dev:ext": "pnpm --filter",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format --write .",
+    "check": "biome check . --write",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.2",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.1",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@10.17.1"
+}
