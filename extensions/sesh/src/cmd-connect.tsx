@@ -92,14 +92,15 @@ export default function ConnectCommand() {
         message: typeof error === "string" ? error : "Unknown reason",
       });
       console.error(error);
+
+      await closeMainWindow();
+      await clearSearchBar();
     } finally {
       // Only focus the window if the session has focus = true in sesh.toml
       if (shouldFocusSession(session)) {
         await openApp();
       }
       
-      await closeMainWindow();
-      await clearSearchBar();
       setIsLoading(false);
     }
   }
